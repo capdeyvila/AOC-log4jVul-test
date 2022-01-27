@@ -16,15 +16,16 @@ pipeline {
                 sh 'mvn test'
                 //build job: 'Burpsuite Scan'
             }
-            post {
+            /*post {
                 always {
                     junit 'target/surefire-reports/*.xml'
                 }
-            }
+            }*/
         }
         stage('SonarQube analysis') {
             steps {
                 withSonarQubeEnv('Sonarqube') {
+                    sh 'mvn dependency-check:check'
                     sh 'mvn clean package sonar:sonar'
                 }
             }

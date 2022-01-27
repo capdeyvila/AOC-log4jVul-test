@@ -14,6 +14,10 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+   <dependency-check-maven.version>6.1.1</dependency-check-maven.version>
+   <sonar.dependencyCheck.htmlReportPath>./target/dependency-check-report.html</sonar.dependencyCheck.htmlReportPath>
+   <sonar.dependencyCheck.jsonReportPath>./target/dependency-check-report.json</sonar.dependencyCheck.jsonReportPath>
+   <sonar.dependencyCheck.summarize>true</sonar.dependencyCheck.summarize>
   </properties>
 
   <dependencies>
@@ -82,10 +86,26 @@
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.0.0</version>
         </plugin>
+        <plugin>
+           <groupId>org.sonarsource.scanner.maven</groupId>
+           <artifactId>sonar-maven-plugin</artifactId>
+           <version>3.8.0.2131</version>
+        </plugin>
       </plugins>
     </pluginManagement>
 
     <plugins>
+        <plugin>
+         <groupId>org.owasp</groupId>
+         <artifactId>dependency-check-maven</artifactId>
+         <version>${dependency-check-maven.version}</version>
+         <configuration>
+            <formats>
+               <format>html</format>
+               <format>json</format>
+            </formats>
+         </configuration>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
